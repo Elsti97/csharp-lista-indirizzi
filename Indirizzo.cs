@@ -22,4 +22,10 @@ public record Indirizzo
         Province = province;
         ZIP = zip;
     }
+
+    // Override per formattazione indirizzi
+    public override string ToString()
+    {
+        return $"Indirizzo: {Name}, {Surname}, {Street}, {City}, {Province}, {ZIP}";
+    }
 }
