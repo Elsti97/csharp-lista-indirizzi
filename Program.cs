@@ -11,21 +11,27 @@ string adressPath = @"..\\..\\..\\addresses.csv";
 // Lettura e inserimento dati dal file csv
 using (var reader = new StreamReader(adressPath))
 {
-    reader.ReadLine();
-
     while (!reader.EndOfStream)
     {
         var line = reader.ReadLine();
-        var values = line?.Split(',');
+        var values = line.Split(',');
 
-        string name = !string.IsNullOrEmpty(values[0]) ? values[0] : "NO DATA";
-        string surname = !string.IsNullOrEmpty(values[1]) ? values[1] : "NO DATA";
-        string street = !string.IsNullOrEmpty(values[2]) ? values[2] : "NO DATA";
-        string city = values.Length >= 4 ? values[3] : "NO DATA";
-        string province = values.Length >= 5 ? values[4] : "NO DATA";
-        string zip = values.Length >= 6 ? values[5] : "NO DATA";
+        if (values.Length == 6)
+        {
+            string name = string.IsNullOrEmpty(values[0].Trim()) ? "NO DATA" : values[0].Trim();
+            string surname = string.IsNullOrEmpty(values[1].Trim()) ? "NO DATA" : values[1].Trim();
+            string street = string.IsNullOrEmpty(values[2].Trim()) ? "NO DATA" : values[2].Trim();
+            string city = string.IsNullOrEmpty(values[3].Trim()) ? "NO DATA" : values[3].Trim();
+            string province = string.IsNullOrEmpty(values[4].Trim()) ? "NO DATA" : values[4].Trim();
+            string zip = string.IsNullOrEmpty(values[5].Trim()) ? "NO DATA" : values[5].Trim();
 
-        indirizzi.Add(new Indirizzo(name, surname, street, city, province, zip));
+            // Aggiunta dell'indirizzo alla lista
+            indirizzi.Add(new Indirizzo(name, surname, street, city, province, zip));
+        }
+        else
+        {
+            Console.WriteLine("Riga non valida: " + line);
+        }
     }
 }
 
